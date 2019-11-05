@@ -9,7 +9,8 @@ jobs:
       - image: circleci/node:10.17.0-buster-browsers-legacy
 
     working_directory: ~/repo
-
+    environment:
+      GIT_COMMIT_DESC: $(git log --format=oneline -n 1 $CIRCLE_SHA1)
     steps:
       - checkout
 
@@ -32,4 +33,4 @@ jobs:
 
       - store_artifacts
           path: ./build
-      - run: ./node_modules/.bin/netlify deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_ACCESS_TOKEN --prod --dir=build
+      - run: ./node_modules/.bin/netlify deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_ACCESS_TOKEN --prod --dir=build --message "$GIT_COMMIT_DESC"
