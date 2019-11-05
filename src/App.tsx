@@ -8,6 +8,7 @@ type User = {
     username: string
     emai: string
 }
+
 const App: React.FC = () => {
     const [users, setUsers] = useState<User[]>([])
     useEffect(() => {
